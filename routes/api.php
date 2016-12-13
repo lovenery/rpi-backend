@@ -13,6 +13,27 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+// five api per minute
+Route::group([ 'middleware' => 'throttle:5,1' ], function () {
+    // curl http://uploadapi.dev/api/test
+    // curl -H "api_token:token" http://uploadapi.dev/api/test
+    Route::get('/test', function () {
+        return 'test route';
+    });
+});
+
+Route::post('upload', function (Request $request)
+{
+    $file = request()->file('image');
+    $ext = $file->extension();
+    $path = $file->storeAs('images', 'cam.'.$ext);
+
+    return $request->all();
+});
+/*
+curl \
+  -H "api_token:token" \
+  -F "filecomment=This is an image file" \
+  -F "image=@/Users/Hsu/Desktop/photo/capoo.png" \
+  http://uploadapi.dev/api/upload
+*/

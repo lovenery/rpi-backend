@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Video</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -26,37 +26,17 @@
             }
 
             .flex-center {
-                align-items: center;
+                /*align-items: center;*/
                 display: flex;
                 justify-content: center;
             }
 
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
+            .text-center {
                 text-align: center;
             }
 
             .title {
                 font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
             }
 
             .m-b-md {
@@ -65,31 +45,41 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
-                    @endif
-                </div>
-            @endif
-
-            <div class="content">
+        <div class="flex-center full-height">
+            <div class="text-center">
                 <div class="title m-b-md">
-                    Laravel
+                    Video
                 </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+                {{-- snapshot --}}
+                <img src="images/cam.png" alt="">
+                {{-- canvas --}}
+                <canvas id="videoCanvas"></canvas>
             </div>
         </div>
+        <script>
+          var canvas, context;
+
+          init();
+          function init() {
+              canvas = document.getElementById('videoCanvas');
+              canvas.width = window.innerWidth;
+              canvas.height = window.innerHeight;
+              context = canvas.getContext('2d');
+              animate();
+          }
+
+          function animate() {
+              if (context) {
+                  var piImage = new Image();
+                  piImage.onload = function() {
+                      console.log('Drawing image');
+                      context.drawImage(piImage, 0, 0, canvas.width, canvas.height);
+                  }
+                  piImage.src = "{{ asset('images/cam.png') }}";
+                  // piImage.src = "http://raspberrypi.local/html/cam_pic.php?time=" + new Date().getTime();
+              }
+              requestAnimationFrame(animate);
+          }
+        </script>
     </body>
 </html>
