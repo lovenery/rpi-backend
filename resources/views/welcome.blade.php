@@ -51,7 +51,7 @@
                     Video
                 </div>
                 {{-- snapshot --}}
-                <img src="images/cam.png" alt="">
+                <img src="images/cam.jpeg" alt="">
                 {{-- canvas --}}
                 <canvas id="videoCanvas"></canvas>
             </div>
@@ -75,7 +75,7 @@
                       console.log('Drawing image');
                       context.drawImage(piImage, 0, 0, canvas.width, canvas.height);
                   }
-                  piImage.src = "{{ url('images/cam.png') }}" + "?time=" + new Date().getTime();
+                  piImage.src = "{{ url('images/cam.jpeg') }}" + "?time=" + new Date().getTime();
                   // piImage.src = "http://raspberrypi.local/html/cam_pic.php?time=" + new Date().getTime();
               }
               requestAnimationFrame(animate);
