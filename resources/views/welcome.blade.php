@@ -75,7 +75,7 @@
                       console.log('Drawing image');
                       context.drawImage(piImage, 0, 0, canvas.width, canvas.height);
                   }
-                  piImage.src = "{{ asset('images/cam.png') }}";
+                  piImage.src = "{{ url('images/cam.png') }}" + "?time=" + new Date().getTime();
                   // piImage.src = "http://raspberrypi.local/html/cam_pic.php?time=" + new Date().getTime();
               }
               requestAnimationFrame(animate);

@@ -28,7 +28,7 @@ Route::post('upload', function (Request $request)
     $ext = $file->extension();
     $path = $file->storeAs('images', 'cam.'.$ext);
 
-    return $request->all();
+    // return $request->all();
 });
 /*
 curl \
